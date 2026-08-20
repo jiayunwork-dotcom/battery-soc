@@ -31,7 +31,7 @@ func ComputeStats(samples []coulomb.CurrentSample) LogStats {
 	sumI2 := 0.0
 	for _, samp := range samples {
 		s.TotalTimeH += samp.DT
-		s.TotalChargeAh += samp.Current * samp.DT
+		s.TotalChargeAh += addCharge(samp)
 		sumI += samp.Current
 		sumI2 += samp.Current * samp.Current
 		if samp.Current > s.MaxCurrent {
