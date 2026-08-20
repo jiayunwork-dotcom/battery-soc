@@ -31,9 +31,5 @@ func CoulombSOC(capacityAh, prevSOC, current, dtH float64) float64 {
 // CoulombFromLog integrates a whole series of current samples starting at SOC=50,
 // clamping each step, and returns the final SOC.
 func CoulombFromLog(capacityAh float64, samples []CurrentSample) float64 {
-	soc := 50.0
-	for _, s := range samples {
-		soc = CoulombSOC(capacityAh, soc, s.Current, s.DT)
-	}
-	return soc
+	return integrateLog(capacityAh, samples)
 }
