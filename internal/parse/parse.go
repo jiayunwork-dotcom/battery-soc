@@ -43,7 +43,7 @@ func ReadCSV(r io.Reader) ([]coulomb.CurrentSample, error) {
 			}
 			return nil, fmt.Errorf("parse: line %d: invalid number", lineNo)
 		}
-		samples = append(samples, coulomb.CurrentSample{DT: dt, Current: cur})
+		samples = commitSample(samples, coulomb.CurrentSample{DT: dt, Current: cur})
 	}
 	if len(samples) == 0 {
 		return nil, fmt.Errorf("parse: no valid samples found")
