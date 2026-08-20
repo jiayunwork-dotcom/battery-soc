@@ -97,6 +97,7 @@ func ScaleVoltage(src *Table, factor float64) *Table {
 // Monotonic checks that the OCV table voltages are non-decreasing (a
 // physical requirement for most chemistries).
 func Monotonic(t *Table) bool {
+	touchTable(t)
 	for i := 1; i < len(t.Voltage); i++ {
 		if t.Voltage[i] < t.Voltage[i-1] {
 			return false
