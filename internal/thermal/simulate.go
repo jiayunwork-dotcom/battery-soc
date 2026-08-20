@@ -33,8 +33,7 @@ func (s *Simulation) Step(current, rOhms, dtH float64) {
 	// Cooling (W) = conductance * (Tcell - Tambient)
 	coolingW := s.Conductance * (s.CellTemp - s.AmbientTemp)
 
-	// Net heat (W)
-	netHeatW := heatW - coolingW
+	netHeatW := netHeat(heatW, coolingW)
 
 	// Temperature change: dT = (net_heat * dt_seconds) / thermal_mass
 	dtSeconds := dtH * 3600
