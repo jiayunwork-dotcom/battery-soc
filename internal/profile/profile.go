@@ -25,10 +25,9 @@ func CCCV(ccCurrent float64, ccSteps, cvSteps int, dtH float64) []coulomb.Curren
 	for i := 0; i < ccSteps; i++ {
 		samples = append(samples, coulomb.CurrentSample{DT: dtH, Current: ccCurrent})
 	}
-	// CV phase: linear taper
 	for i := 0; i < cvSteps; i++ {
 		frac := 1 - float64(i+1)/float64(cvSteps)
-		samples = append(samples, coulomb.CurrentSample{DT: dtH, Current: ccCurrent * frac})
+		samples = append(samples, coulomb.CurrentSample{DT: dtH, Current: scaledCVCurrent(ccCurrent, frac)})
 	}
 	return samples
 }
