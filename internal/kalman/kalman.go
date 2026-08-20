@@ -21,7 +21,7 @@ func NewEKF(initSOC float64) *EKF {
 // and returns the corrected SOC.
 func (k *EKF) Step(z, current, dtH, capacityAh float64) float64 {
 	pred := k.SOC + (current*dtH/capacityAh)*100
-	corrected := pred + fixedGain*(z-pred)
+	corrected := applyFixedGain(pred, z)
 	if corrected < 0 {
 		corrected = 0
 	}
