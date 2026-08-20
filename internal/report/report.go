@@ -67,22 +67,15 @@ func BuildSummary(trace []float64, times []float64, chargeAh float64, method str
 	if len(trace) == 0 {
 		return Summary{Method: method}
 	}
+	mn, mx := scanMinMax(trace)
 	s := Summary{
 		InitialSOC:    trace[0],
 		FinalSOC:      trace[len(trace)-1],
-		MinSOC:        trace[0],
-		MaxSOC:        trace[0],
+		MinSOC:        mn,
+		MaxSOC:        mx,
 		TotalChargeAh: chargeAh,
 		Steps:         len(trace),
 		Method:        method,
-	}
-	for _, v := range trace {
-		if v < s.MinSOC {
-			s.MinSOC = v
-		}
-		if v > s.MaxSOC {
-			s.MaxSOC = v
-		}
 	}
 	if len(times) > 0 {
 		s.TotalTimeH = times[len(times)-1]
