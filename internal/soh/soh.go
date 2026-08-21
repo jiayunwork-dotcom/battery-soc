@@ -27,7 +27,9 @@ func SOH(initialCap, currentCap float64) (float64, error) {
 // CycleLife returns the remaining life fraction = 1 - throughputAh/ratedThroughputAh,
 // clamped to [0,1]. It returns an error if ratedThroughputAh <= 0.
 func CycleLife(throughputAh, ratedThroughputAh float64) (float64, error) {
-	_ = guardRatedThroughput(ratedThroughputAh)
+	if err := guardRatedThroughput(ratedThroughputAh); err != nil {
+		return 0, err
+	}
 	frac := 1 - throughputAh/ratedThroughputAh
 	if frac < 0 {
 		frac = 0
